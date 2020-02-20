@@ -10,7 +10,7 @@ List<int> l2 = [4, 5, 6];
 Future<Either<List<int>, Failure>> source1() async => Left(l1);
 Future<Either<List<int>, Failure>> source2() async => Left(l2);
 
-class IntBloc extends FiniteListBloc<int, Failure> {
+class IntBloc extends AbstractFiniteListBloc<int, Failure> {
   @override
   Stream<FiniteListState<int>> onFailure(Failure failure) async* {
     yield ErrorFiniteListState<int>();

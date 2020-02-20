@@ -10,7 +10,7 @@ final l3 = List.generate(10, (i) => faker.randomGenerator.integer(100));
 List<int> transformer(List<int> l) =>
     l.map((a) => a * 5).where((a) => a % 2 == 0).toList();
 
-class MockFiniteList extends Mock implements FiniteListBloc<int, void> {}
+class MockFiniteList extends Mock implements AbstractFiniteListBloc<int, void> {}
 
 void main() {
   MockFiniteList countFiniteList;

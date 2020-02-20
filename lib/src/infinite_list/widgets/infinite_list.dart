@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 
-class InfiniteList<T, BlocType extends InfiniteListBloc<T, dynamic>>
+class InfiniteList<T, BlocType extends AbstractInfiniteListBloc<T, dynamic>>
     extends StatelessWidget {
   final Widget Function(T) toWidget;
   final Widget failureIndicator;

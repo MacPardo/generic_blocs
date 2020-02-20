@@ -6,7 +6,7 @@ import 'package:generic_blocs/generic_blocs.dart';
 typedef ListFilter<T> = List<T> Function(List<T>);
 
 class FilterBloc<T> extends Bloc<FilterEvent<T>, FiniteListState<T>> {
-  final FiniteListBloc<T, dynamic> finiteListBloc;
+  final AbstractFiniteListBloc<T, dynamic> finiteListBloc;
   StreamSubscription _finiteListBlocSubscription;
   ListFilter<T> _currentFilter;
   FiniteListState _currentFiniteListState;

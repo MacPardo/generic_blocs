@@ -7,7 +7,7 @@ import 'package:generic_blocs/generic_blocs.dart';
 typedef InfiniteListSource<T, Failure> = Future<Either<List<T>, Failure>>
     Function(int);
 
-abstract class InfiniteListBloc<T, Failure>
+abstract class AbstractInfiniteListBloc<T, Failure>
     extends Bloc<InfiniteListEvent<T, Failure>, InfiniteListState<T>> {
   static const int firstPage = 1;
   int _nextPage = firstPage;
