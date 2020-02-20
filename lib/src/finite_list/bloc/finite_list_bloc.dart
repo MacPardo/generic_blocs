@@ -43,10 +43,10 @@ abstract class FiniteListBloc<T, Failure>
   Stream<FiniteListState<T>> _load(
     FiniteListSource<T, Failure> source,
   ) async* {
-    yield LoadingFiniteListState();
+    yield LoadingFiniteListState<T>();
     final either = await source();
     yield* either.fold((list) async* {
-      yield LoadedFiniteListState(list: list);
+      yield LoadedFiniteListState<T>(list: list);
     }, (failure) async* {
       yield* onFailure(failure);
     });

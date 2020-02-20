@@ -1,9 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-@immutable
-abstract class FiniteListState<T> {}
+abstract class FiniteListState<T> extends Equatable {}
 
-class LoadingFiniteListState<T> extends FiniteListState<T> {}
+class LoadingFiniteListState<T> extends FiniteListState<T> {
+  @override
+  List<Object> get props => [];
+}
 
 class LoadedFiniteListState<T> extends FiniteListState<T> {
   final List<T> list;
@@ -16,11 +19,10 @@ class LoadedFiniteListState<T> extends FiniteListState<T> {
   }
 
   @override
-  bool operator ==(other) =>
-      other is LoadedFiniteListState<T> && other.list == list;
-
-  @override
-  int get hashCode => list.hashCode;
+  List<Object> get props => [list];
 }
 
-class ErrorFiniteListState<T> extends FiniteListState<T> {}
+class ErrorFiniteListState<T> extends FiniteListState<T> {
+  @override
+  List<Object> get props => [];
+}
