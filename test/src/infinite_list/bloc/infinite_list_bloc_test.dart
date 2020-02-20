@@ -62,9 +62,9 @@ class IntBloc extends InfiniteListBloc<int, Failure> {
   Stream<InfiniteListState<int>> onFailure(Failure failure) async* {
     if (failure is NotFoundNetworkResponseFailure ||
         failure is UnauthorizedNetworkResponseFailure) {
-      yield* disable();
+      yield* disabledState();
     } else {
-      yield* this.fail();
+      yield* this.failedState();
     }
   }
 }

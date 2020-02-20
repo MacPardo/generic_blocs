@@ -65,13 +65,13 @@ abstract class InfiniteListBloc<T, Failure>
   }
 
   @protected
-  Stream<InfiniteListState<T>> disable() async* {
+  Stream<InfiniteListState<T>> disabledState() async* {
     _sourceClosed = true;
     yield state.copyWith(loading: false, disabled: true);
   }
 
   @protected
-  Stream<InfiniteListState<T>> fail() async* {
+  Stream<InfiniteListState<T>> failedState() async* {
     yield state.copyWith(failed: true, loading: false);
   }
 }
