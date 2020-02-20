@@ -1,7 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-@immutable
-class InfiniteListState<T> {
+class InfiniteListState<T> extends Equatable {
   final List<T> list;
   final bool loading;
   final bool failed;
@@ -33,14 +33,5 @@ class InfiniteListState<T> {
   }
 
   @override
-  bool operator ==(other) =>
-      other is InfiniteListState<T> &&
-      other.list == list &&
-      other.loading == loading &&
-      other.failed == failed &&
-      other.disabled == disabled;
-
-  @override
-  int get hashCode =>
-      list.hashCode ^ loading.hashCode ^ failed.hashCode ^ disabled.hashCode;
+  List<Object> get props => [list, loading, failed, disabled];
 }
