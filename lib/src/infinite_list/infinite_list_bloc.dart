@@ -8,7 +8,7 @@ typedef InfiniteListSource<T, Failure> = Future<Either<List<T>, Failure>>
     Function(int);
 
 abstract class InfiniteListBloc<T, Failure>
-    extends Bloc<InfiniteListEvent<T>, InfiniteListState<T>> {
+    extends Bloc<InfiniteListEvent<T, Failure>, InfiniteListState<T>> {
   static const int firstPage = 1;
   int _nextPage = firstPage;
   InfiniteListSource<T, Failure> _source;
@@ -22,9 +22,9 @@ abstract class InfiniteListBloc<T, Failure>
 
   @override
   Stream<InfiniteListState<T>> mapEventToState(
-    InfiniteListEvent<T> event,
+    InfiniteListEvent<T, Failure> event,
   ) async* {
-    if (event is ChangeSourceInfiniteListEvent<T>) {
+    if (event is ChangeSourceInfiniteListEvent<T, Failure>) {
       yield* _changeSource(event);
     } else if (event is ResetInfiniteListEvent) {
       yield* _reset(event);
@@ -37,21 +37,22 @@ abstract class InfiniteListBloc<T, Failure>
   }
 
   Stream<InfiniteListState<T>> _changeSource(
-      ChangeSourceInfiniteListEvent<T> event) async* {
+      ChangeSourceInfiniteListEvent<T, Failure> event) async* {
     _source = event.source;
     _nextPage = firstPage;
     _sourceClosed = false;
     yield initialState;
   }
 
-  Stream<InfiniteListState<T>> _reset(ResetInfiniteListEvent<T> event) async* {
+  Stream<InfiniteListState<T>> _reset(
+      ResetInfiniteListEvent<T, Failure> event) async* {
     _nextPage = firstPage;
     _sourceClosed = false;
     yield initialState;
   }
 
   Stream<InfiniteListState<T>> _loadMore(
-      LoadMoreInfiniteListEvent<T> event) async* {
+      LoadMoreInfiniteListEvent<T, Failure> event) async* {
     yield state.copyWith(loading: true, failed: false);
     final either = await _source(_nextPage);
 

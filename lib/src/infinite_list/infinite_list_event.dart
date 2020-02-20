@@ -2,14 +2,17 @@ import 'package:meta/meta.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 
 @immutable
-abstract class InfiniteListEvent<T> {}
+abstract class InfiniteListEvent<T, Failure> {}
 
-class LoadMoreInfiniteListEvent<T> extends InfiniteListEvent<T> {}
+class LoadMoreInfiniteListEvent<T, Failure>
+    extends InfiniteListEvent<T, Failure> {}
 
-class ResetInfiniteListEvent<T> extends InfiniteListEvent<T> {}
+class ResetInfiniteListEvent<T, Failure> extends InfiniteListEvent<T, Failure> {
+}
 
-class ChangeSourceInfiniteListEvent<T> extends InfiniteListEvent<T> {
-  final InfiniteListSource source;
+class ChangeSourceInfiniteListEvent<T, Failure>
+    extends InfiniteListEvent<T, Failure> {
+  final InfiniteListSource<T, Failure> source;
 
   ChangeSourceInfiniteListEvent(this.source);
 }
