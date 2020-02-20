@@ -8,3 +8,4 @@ export 'src/infinite_list/widgets/infinite_list.dart';
 export 'src/finite_list/bloc/finite_list_bloc.dart';
 export 'src/finite_list/bloc/finite_list_event.dart';
 export 'src/finite_list/bloc/finite_list_state.dart';
+export 'src/finite_list/widgets/finite_list.dart';
