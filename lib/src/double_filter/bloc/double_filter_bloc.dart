@@ -18,9 +18,9 @@ class DoubleFilterBloc<X, Y, R>
   FiniteListState<X> _currentX = LoadingFiniteListState<X>();
   FiniteListState<Y> _currentY = LoadingFiniteListState<Y>();
 
-  DoubleFilter<X, Y, R> _filter = (x, y) => null;
+  DoubleFilter<X, Y, R> _filter;
 
-  DoubleFilterBloc(this.blocX, this.blocY) {
+  DoubleFilterBloc(this.blocX, this.blocY, this._filter) {
     _subscriptionX = blocX.listen(_onX);
     _subscriptionY = blocY.listen(_onY);
   }
