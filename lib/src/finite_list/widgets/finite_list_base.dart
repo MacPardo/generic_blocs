@@ -41,7 +41,7 @@ class FiniteListBase<T, BlocType extends FiniteOutputBloc<dynamic, T>>
     });
   }
 
-  _refresh(BuildContext context) {
+  _refresh(BuildContext context) async {
     final BlocType bloc = BlocProvider.of<BlocType>(context);
     bloc.refresh();
   }
