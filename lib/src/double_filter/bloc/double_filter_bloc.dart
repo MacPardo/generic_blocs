@@ -7,10 +7,10 @@ import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
 typedef DoubleFilter<X, Y, R> = List<R> Function(List<X>, List<Y>);
 
-class DoubleFilterBloc<X, Y, R>
+class DoubleFilterBloc<X, FailureX, Y, FailureY, R>
     extends FiniteOutputBloc<DoubleFilterEvent<X, Y, R>, R> {
-  final FiniteListBlocBase<X, dynamic> blocX;
-  final FiniteListBlocBase<Y, dynamic> blocY;
+  final FiniteListBlocBase<X, FailureX> blocX;
+  final FiniteListBlocBase<Y, FailureY> blocY;
 
   StreamSubscription _subscriptionX;
   StreamSubscription _subscriptionY;
@@ -91,7 +91,7 @@ class DoubleFilterBloc<X, Y, R>
 
   @override
   void refresh() {
-    blocX.add(RefreshFiniteListEvent());
-    blocY.add(RefreshFiniteListEvent());
+    blocX.add(RefreshFiniteListEvent<X, FailureX>());
+    blocY.add(RefreshFiniteListEvent<Y, FailureY>());
   }
 }

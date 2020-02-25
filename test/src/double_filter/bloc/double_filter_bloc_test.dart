@@ -23,7 +23,7 @@ List<String> combine(List<int> a, List<String> b) {
 void main() {
   MockX mockX;
   MockY mockY;
-  DoubleFilterBloc<int, String, String> doubleFilterBloc;
+  DoubleFilterBloc<int, int, String, String, String> doubleFilterBloc;
 
   setUp(() {
     mockX = MockX();
