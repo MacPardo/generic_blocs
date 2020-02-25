@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
+import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
-class FiniteList<T, BlocType extends Bloc<dynamic, FiniteListState<T>>>
+class FiniteList<T, Event, BlocType extends FiniteOutputBloc<Event, T>>
     extends StatelessWidget {
   final Widget Function(T) toWidget;
   final Widget failureIndicator;
   final Widget loadingIndicator;
-  final Future<void> Function(BuildContext context) onRefresh;
 
   FiniteList({
     @required this.toWidget,
     @required this.loadingIndicator,
     @required this.failureIndicator,
-    @required this.onRefresh,
   })  : assert(toWidget != null),
         assert(loadingIndicator != null),
-        assert(failureIndicator != null),
-        assert(onRefresh != null);
+        assert(failureIndicator != null);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +36,13 @@ class FiniteList<T, BlocType extends Bloc<dynamic, FiniteListState<T>>>
             return null;
           },
         ),
-        onRefresh: () => onRefresh(context),
+        onRefresh: () => _refresh(context),
       );
     });
+  }
+
+  _refresh(BuildContext context) {
+    final BlocType bloc = BlocProvider.of<BlocType>(context);
+    bloc.refresh();
   }
 }
