@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 import 'package:generic_blocs/src/double_filter/bloc/double_filter_event.dart';
 import 'package:generic_blocs/src/finite_list/bloc/finite_list_state.dart';
+import 'package:generic_blocs/src/refreshable_bloc.dart';
 
 typedef DoubleFilter<X, Y, R> = List<R> Function(List<X>, List<Y>);
 
 class DoubleFilterBloc<X, Y, R>
-    extends Bloc<DoubleFilterEvent<X, Y, R>, FiniteListState<R>> {
+    extends RefreshableBloc<DoubleFilterEvent<X, Y, R>, FiniteListState<R>> {
   final AbstractFiniteListBloc<X, dynamic> blocX;
   final AbstractFiniteListBloc<Y, dynamic> blocY;
 
@@ -87,5 +87,11 @@ class DoubleFilterBloc<X, Y, R>
       stateX: _currentX,
       stateY: state,
     ));
+  }
+
+  @override
+  void refresh() {
+    blocX.add(RefreshFiniteListEvent());
+    blocY.add(RefreshFiniteListEvent());
   }
 }
