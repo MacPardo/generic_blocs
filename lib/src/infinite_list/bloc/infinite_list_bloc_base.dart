@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,7 @@ import 'package:generic_blocs/generic_blocs.dart';
 typedef InfiniteListSource<T, Failure> = Future<Either<List<T>, Failure>>
     Function(int);
 
-abstract class AbstractInfiniteListBloc<T, Failure>
+abstract class InfiniteListBlocBase<T, Failure>
     extends Bloc<InfiniteListEvent<T, Failure>, InfiniteListState<T>> {
   static const int firstPage = 1;
   int _nextPage = firstPage;

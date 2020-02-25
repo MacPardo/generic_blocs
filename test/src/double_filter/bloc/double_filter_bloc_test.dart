@@ -6,9 +6,9 @@ import 'package:generic_blocs/src/double_filter/bloc/double_filter_bloc.dart';
 import 'package:generic_blocs/src/double_filter/bloc/double_filter_event.dart';
 import 'package:mockito/mockito.dart';
 
-class MockX extends Mock implements AbstractFiniteListBloc<int, int> {}
+class MockX extends Mock implements FiniteListBlocBase<int, int> {}
 
-class MockY extends Mock implements AbstractFiniteListBloc<String, String> {}
+class MockY extends Mock implements FiniteListBlocBase<String, String> {}
 
 List<String> combine(List<int> a, List<String> b) {
   final List<String> x = [];

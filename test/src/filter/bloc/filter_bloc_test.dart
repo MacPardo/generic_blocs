@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:generic_blocs/generic_blocs.dart';
+import 'package:mockito/mockito.dart';
 
 final l1 = List.generate(10, (i) => faker.randomGenerator.integer(100));
 final l2 = List.generate(10, (i) => faker.randomGenerator.integer(100));
@@ -10,7 +10,7 @@ final l3 = List.generate(10, (i) => faker.randomGenerator.integer(100));
 List<int> transformer(List<int> l) =>
     l.map((a) => a * 5).where((a) => a % 2 == 0).toList();
 
-class MockFiniteList extends Mock implements AbstractFiniteListBloc<int, void> {}
+class MockFiniteList extends Mock implements FiniteListBlocBase<int, void> {}
 
 void main() {
   MockFiniteList countFiniteList;

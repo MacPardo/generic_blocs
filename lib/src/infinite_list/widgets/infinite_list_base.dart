@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 
-class InfiniteList<T, BlocType extends AbstractInfiniteListBloc<T, dynamic>>
+class InfiniteListBase<T, BlocType extends InfiniteListBlocBase<T, dynamic>>
     extends StatelessWidget {
   final Widget Function(T) toWidget;
   final Widget failureIndicator;
   final Widget loadingIndicator;
   final Future<void> Function(BuildContext context) onRefresh;
 
-  InfiniteList({
+  InfiniteListBase({
     @required this.toWidget,
     @required this.failureIndicator,
     @required this.loadingIndicator,

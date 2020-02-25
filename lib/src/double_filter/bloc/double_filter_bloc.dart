@@ -9,8 +9,8 @@ typedef DoubleFilter<X, Y, R> = List<R> Function(List<X>, List<Y>);
 
 class DoubleFilterBloc<X, Y, R>
     extends FiniteOutputBloc<DoubleFilterEvent<X, Y, R>, R> {
-  final AbstractFiniteListBloc<X, dynamic> blocX;
-  final AbstractFiniteListBloc<Y, dynamic> blocY;
+  final FiniteListBlocBase<X, dynamic> blocX;
+  final FiniteListBlocBase<Y, dynamic> blocY;
 
   StreamSubscription _subscriptionX;
   StreamSubscription _subscriptionY;

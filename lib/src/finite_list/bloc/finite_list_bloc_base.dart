@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 typedef FiniteListSource<T, Failure> = Future<Either<List<T>, Failure>>
     Function();
 
-abstract class AbstractFiniteListBloc<T, Failure>
+abstract class FiniteListBlocBase<T, Failure>
     extends FiniteOutputBloc<FiniteListEvent<T, Failure>, T> {
   FiniteListSource _lastSource = () async => Left<List<T>, Failure>(<T>[]);
 

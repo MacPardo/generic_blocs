@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
-class FiniteList<T, Event, BlocType extends FiniteOutputBloc<Event, T>>
+class FiniteListBase<T, Event, BlocType extends FiniteOutputBloc<Event, T>>
     extends StatelessWidget {
   final Widget Function(T) toWidget;
   final Widget failureIndicator;
   final Widget loadingIndicator;
 
-  FiniteList({
+  FiniteListBase({
     @required this.toWidget,
     @required this.loadingIndicator,
     @required this.failureIndicator,

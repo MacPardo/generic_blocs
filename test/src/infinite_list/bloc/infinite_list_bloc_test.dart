@@ -57,7 +57,7 @@ class FailsTheFirstTimeWithUnauthorized {
   }
 }
 
-class IntBloc extends AbstractInfiniteListBloc<int, Failure> {
+class IntBloc extends InfiniteListBlocBase<int, Failure> {
   @override
   Stream<InfiniteListState<int>> onFailure(Failure failure) async* {
     if (failure is NotFoundNetworkResponseFailure ||
