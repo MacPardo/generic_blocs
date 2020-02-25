@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:generic_blocs/generic_blocs.dart';
-import 'package:generic_blocs/src/refreshable_bloc.dart';
+import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
 typedef ListFilter<T> = List<T> Function(List<T>);
 
-class FilterBloc<T>
-    extends RefreshableBloc<FilterEvent<T>, FiniteListState<T>> {
+class FilterBloc<T> extends FiniteOutputBloc<FilterEvent<T>, T> {
   final AbstractFiniteListBloc<T, dynamic> finiteListBloc;
   StreamSubscription _finiteListBlocSubscription;
   ListFilter<T> _currentFilter;

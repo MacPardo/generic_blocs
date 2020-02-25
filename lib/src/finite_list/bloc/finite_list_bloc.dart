@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:generic_blocs/generic_blocs.dart';
-import 'package:generic_blocs/src/refreshable_bloc.dart';
+import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 import 'package:meta/meta.dart';
 
 typedef FiniteListSource<T, Failure> = Future<Either<List<T>, Failure>>
     Function();
 
 abstract class AbstractFiniteListBloc<T, Failure>
-    extends RefreshableBloc<FiniteListEvent<T, Failure>, FiniteListState<T>> {
+    extends FiniteOutputBloc<FiniteListEvent<T, Failure>, T> {
   FiniteListSource _lastSource = () async => Left<List<T>, Failure>(<T>[]);
 
   @protected
@@ -41,7 +41,8 @@ abstract class AbstractFiniteListBloc<T, Failure>
   }
 
   Stream<FiniteListState<T>> _load(
-      FiniteListSource<T, Failure> source,) async* {
+    FiniteListSource<T, Failure> source,
+  ) async* {
     yield LoadingFiniteListState<T>();
     final either = await source();
     yield* either.fold((list) async* {

@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:generic_blocs/generic_blocs.dart';
 import 'package:generic_blocs/src/double_filter/bloc/double_filter_event.dart';
 import 'package:generic_blocs/src/finite_list/bloc/finite_list_state.dart';
-import 'package:generic_blocs/src/refreshable_bloc.dart';
+import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
 typedef DoubleFilter<X, Y, R> = List<R> Function(List<X>, List<Y>);
 
 class DoubleFilterBloc<X, Y, R>
-    extends RefreshableBloc<DoubleFilterEvent<X, Y, R>, FiniteListState<R>> {
+    extends FiniteOutputBloc<DoubleFilterEvent<X, Y, R>, R> {
   final AbstractFiniteListBloc<X, dynamic> blocX;
   final AbstractFiniteListBloc<Y, dynamic> blocY;
 
