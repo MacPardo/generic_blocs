@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:generic_blocs/generic_blocs.dart';
 import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
-class FiniteListBase<T, Event, BlocType extends FiniteOutputBloc<Event, T>>
+class FiniteListBase<T, BlocType extends FiniteOutputBloc<dynamic, T>>
     extends StatelessWidget {
   final Widget Function(T) toWidget;
-  final Widget failureIndicator;
+  final Widget Function(VoidCallback onRefresh) failureIndicator;
   final Widget loadingIndicator;
 
   FiniteListBase({
@@ -30,7 +30,7 @@ class FiniteListBase<T, Event, BlocType extends FiniteOutputBloc<Event, T>>
             } else if (state is LoadingFiniteListState<T> && index == 0) {
               return loadingIndicator;
             } else if (state is ErrorFiniteListState<T> && index == 0) {
-              return failureIndicator;
+              return failureIndicator(() => _refresh(context));
             }
 
             return null;
