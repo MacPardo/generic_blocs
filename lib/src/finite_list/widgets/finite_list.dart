@@ -7,7 +7,7 @@ class FiniteList<T, BlocType extends Bloc<dynamic, FiniteListState<T>>>
   final Widget Function(T) toWidget;
   final Widget failureIndicator;
   final Widget loadingIndicator;
-  Future<void> Function(BuildContext context) onRefresh;
+  final Future<void> Function(BuildContext context) onRefresh;
 
   FiniteList({
     @required this.toWidget,
