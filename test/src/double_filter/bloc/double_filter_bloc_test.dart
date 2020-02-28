@@ -10,7 +10,7 @@ class MockX extends Mock implements FiniteListBlocBase<int, int> {}
 
 class MockY extends Mock implements FiniteListBlocBase<String, String> {}
 
-List<String> combine(List<int> a, List<String> b) {
+Future<List<String>> combine(List<int> a, List<String> b) async {
   final List<String> x = [];
 
   for (int i = 0; i < min(a.length, b.length); i++) {
@@ -36,7 +36,7 @@ void main() {
       expect(doubleFilterBloc.initialState, LoadingFiniteListState<String>());
     });
 
-    test('reacts while applying filter function', () {
+    test('reacts while applying filter function', () async {
       final xStates = [
         LoadingFiniteListState<int>(),
         LoadedFiniteListState<int>(list: [1]),
@@ -58,7 +58,7 @@ void main() {
           LoadingFiniteListState<String>(),
           ErrorFiniteListState<String>(),
           LoadingFiniteListState<String>(),
-          LoadedFiniteListState<String>(list: combine([3], ['a'])),
+          LoadedFiniteListState<String>(list: await combine([3], ['a'])),
           ErrorFiniteListState<String>(),
         ]),
       );

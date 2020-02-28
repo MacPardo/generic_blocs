@@ -5,7 +5,7 @@ import 'package:generic_blocs/src/double_filter/bloc/double_filter_event.dart';
 import 'package:generic_blocs/src/finite_list/bloc/finite_list_state.dart';
 import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
-typedef DoubleFilter<X, Y, R> = List<R> Function(List<X>, List<Y>);
+typedef DoubleFilter<X, Y, R> = Future<List<R>> Function(List<X>, List<Y>);
 
 class DoubleFilterBloc<X, FailureX, Y, FailureY, R>
     extends FiniteOutputBloc<DoubleFilterEvent<X, Y, R>, R> {
@@ -71,7 +71,7 @@ class DoubleFilterBloc<X, FailureX, Y, FailureY, R>
         y is LoadingFiniteListState<Y>) {
       yield LoadingFiniteListState<R>();
     } else if (x is LoadedFiniteListState<X> && y is LoadedFiniteListState<Y>) {
-      yield LoadedFiniteListState<R>(list: _filter(x.list, y.list));
+      yield LoadedFiniteListState<R>(list: await _filter(x.list, y.list));
     }
   }
 
