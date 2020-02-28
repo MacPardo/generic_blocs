@@ -25,13 +25,14 @@ void main() {
     test('initial state is LoadingFiniteListState', () {
       expect(transformBloc.initialState, isA<LoadingFiniteListState>());
     });
-    test('initial transformer is identity function', () {
+
+    test('initial transformer is identity function', () async {
       for (int i = 0; i < 20; i++) {
         final list = List.generate(
           20,
           (i) => faker.randomGenerator.integer(1000),
         );
-        expect(transformBloc.initialFilter(list), list);
+        expect(await transformBloc.initialFilter(list), list);
       }
     });
 
@@ -57,24 +58,24 @@ void main() {
 
     test(
         'the list in the state correspond to the list returned by the transformer',
-        () {
-      final List<int> Function(List<int>) transformer =
-          (a) => a.map((x) => x * 2).toList();
-      final finiteListStates = [
-        LoadingFiniteListState<int>(),
-        LoadedFiniteListState<int>(list: l1),
-        LoadedFiniteListState<int>(list: l2),
-        LoadedFiniteListState<int>(list: l3),
-        ErrorFiniteListState<int>(),
-      ];
+            () async {
+          final Future<List<int>> Function(List<int>) transformer =
+              (a) async => a.map((x) => x * 2).toList();
+          final finiteListStates = [
+            LoadingFiniteListState<int>(),
+            LoadedFiniteListState<int>(list: l1),
+            LoadedFiniteListState<int>(list: l2),
+            LoadedFiniteListState<int>(list: l3),
+            ErrorFiniteListState<int>(),
+          ];
 
-      expectLater(
-        transformBloc,
+          expectLater(
+            transformBloc,
         emitsInOrder([
           LoadingFiniteListState<int>(),
-          LoadedFiniteListState<int>(list: transformer(l1)),
-          LoadedFiniteListState<int>(list: transformer(l2)),
-          LoadedFiniteListState<int>(list: transformer(l3)),
+          LoadedFiniteListState<int>(list: await transformer(l1)),
+          LoadedFiniteListState<int>(list: await transformer(l2)),
+          LoadedFiniteListState<int>(list: await transformer(l3)),
           ErrorFiniteListState<int>(),
         ]),
       );

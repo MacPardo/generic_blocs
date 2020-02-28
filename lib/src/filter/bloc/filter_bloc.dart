@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:generic_blocs/generic_blocs.dart';
 import 'package:generic_blocs/src/finite_output_bloc/finite_output_bloc.dart';
 
-typedef ListFilter<T> = List<T> Function(List<T>);
+typedef ListFilter<T> = Future<List<T>> Function(List<T>);
 
 class FilterBloc<T> extends FiniteOutputBloc<FilterEvent<T>, T> {
   final FiniteListBlocBase<T, dynamic> finiteListBloc;
@@ -26,7 +26,7 @@ class FilterBloc<T> extends FiniteOutputBloc<FilterEvent<T>, T> {
   @override
   FiniteListState<T> get initialState => LoadingFiniteListState<T>();
 
-  ListFilter<T> get initialFilter => (a) => a;
+  ListFilter<T> get initialFilter => (a) async => a;
 
   @override
   Stream<FiniteListState<T>> mapEventToState(FilterEvent<T> event) async* {
@@ -47,7 +47,7 @@ class FilterBloc<T> extends FiniteOutputBloc<FilterEvent<T>, T> {
     _currentFiniteListState = finiteListState;
     if (finiteListState is LoadedFiniteListState<T>) {
       yield LoadedFiniteListState(
-        list: _currentFilter(finiteListState.list),
+        list: await _currentFilter(finiteListState.list),
       );
     } else {
       yield finiteListState;
@@ -60,7 +60,7 @@ class FilterBloc<T> extends FiniteOutputBloc<FilterEvent<T>, T> {
     final currentFiniteListState = _currentFiniteListState;
     if (currentFiniteListState is LoadedFiniteListState) {
       yield LoadedFiniteListState(
-        list: _currentFilter(currentFiniteListState.list),
+        list: await _currentFilter(currentFiniteListState.list),
       );
     }
   }
